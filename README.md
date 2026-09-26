@@ -115,7 +115,10 @@ def silu(self):
     return Value(self.data*s, (self,), (s*(1+self.data*(1-s)),))
 ```
 
-Why does it work better? I don't know, ask Noam Shazeer :). The original FFN has two matrices at 4d × d, so 8d² parameters. SwiGLU has three matrices at h × d, so 3hd. Setting 3hd = 8d² gives h = (8/3)d. We approximate to 3 here. In total (this change + removing positional embeddings + GQA), the model goes from 4,192 to 3,944 parameters.
+The original FFN has two matrices at 4d × d, so 8d² parameters. SwiGLU has three matrices at h × d, so 3hd. Setting 3hd = 8d² gives h = (8/3)d. We approximate to 3 here. Why does it work better? I don't know, ask Noam Shazeer :). 
+
+Finally, Qwen 3 has 28 repeated transformer blocks (`n_layer`) even in the small model and has larger dimensions, which we didn't configure here for simplicity. 
+In total (this change + removing positional embeddings + GQA), the model goes from 4,192 to 3,944 parameters. Has similar val loss (the benefits are seen when you scale the model). 
 
 
 
