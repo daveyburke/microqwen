@@ -5,7 +5,7 @@ number of key enhancements. Inspired by the amazing and artful [microgpt](https:
 modified version that follows modern transformer approaches in Qwen 3 by adding Rotary Positional Embedding (RoPE), QKNorm, Grouped-query Attention (GQA), 
 and Swish Gated Linear Unit (SwiGLU). Code edited by hand to stay in style, clarity, and purity of Andrej's original work.
 
-## RoPE
+## Rotary Position Embeddings (RoPE)
 
 microgpt uses GPT-2's learned position vector (`wpe`) which is added to the token embedding. RoPE (Rotary Position Embeddings) replaces this, encoding
 position by rotating the query and key vectors by an angle that depends on position in the sequence.
@@ -64,7 +64,7 @@ state_dict[f'layer{i}.k_norm'] = matrix(1, head_dim, std=0, mean=1.0)
 ```
 The order is important: normalize first, then rotate. Rotation preserves length, so the norm's survives RoPE.
 
-## GQA
+## Grouped Query Attention (GQA)
 
 In standard multi-head attention, every query head has its own key and value head. GQA (Grouped Query Attention) lets groups of query heads share one K/V head to reduce number of learned paramters.
 We keep 4 query heads but only 2 KV heads:
@@ -94,9 +94,9 @@ v_h = [vi[ks:ks+head_dim] for vi in values[li]]
 
 `n_head // n_kv_head` is the group size (2 here), and integer division buckets consecutive heads together: query heads 0 and 1 read KV head 0, and heads 2 and 3 read KV head 1. 
 
-## SwiGLU
+## Swish-Gated Linear Unit (SwiGLU)
 
-The FFN where the transformer's memory is located. The original feed-forward network (FFN) projects up, applies ReLU, and projects down. You can think of this as memory retrieval because the up projection + ReLU acts as the key selection and then down projection is the retrieved (learned) information passed through. SwiGLU replaces this with a gated design: two parallel up-projections, one of which, passed through a smooth activation, and acts as a gate on the other.
+The FFN where the transformer's memory is located. The original feed-forward network (FFN) projects up, applies ReLU, and projects down. You can think of this as memory retrieval because the up projection + ReLU acts as the key selection and then down projection is the retrieved (learned) information passed through. SwiGLU (Swish-Gated Linear Unit) replaces this with a gated design: two parallel up-projections, one of which, passed through a smooth activation, and acts as a gate on the other.
 
 ```python
 x_mlp_fc1 = linear(x, state_dict[f'layer{li}.mlp_fc1'])
