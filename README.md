@@ -32,7 +32,7 @@ q = [z for h in range(n_head) for z in rope(rmsnorm(q[h*head_dim:(h+1)*head_dim]
 k = [z for h in range(n_kv_head) for z in rope(rmsnorm(k[h*head_dim:(h+1)*head_dim], kn), pos_id)] # QKNorm + RoPE
 ```
 
-Note that autograd needed no new blocks for this. The angles are plain floats computed from the position, so `math.cos` never touches a `Value`. From autograd's point of view, a rotation is just multiplying by constants and adding, which it already supports.
+Note that autograd needed no new blocks for this. The angles are plain floats computed from the position, so `math.cos` never touches a `Value`. From autograd's point of view, a rotation is just multiplying by constants and adding, which it already supports. Production implementations precompute sin and cos, and use an equivalent "split-half" approach to split the tensor in half and manipulate before doing the sin/cos multiplication, which makes the computation more efficient for GPUs.
 
 ## RMSNorm and QKNorm
 
