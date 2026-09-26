@@ -1,9 +1,9 @@
 # microqwen
 
-The transformer model from the original 2017 "Attention is all you need" paper has stood the test of time with only a small 
-number of key enhancements. Inspired by the amazing and artful [microgpt](https://karpathy.github.io/2026/02/12/microgpt/) from @karpathy, here is a
-modified version that follows modern transformer approaches in Qwen 3 by adding Rotary Positional Embedding (RoPE), QKNorm, Grouped-query Attention (GQA), 
-and Swish Gated Linear Unit (SwiGLU). Code edited by hand to stay in style, clarity, and purity of Andrej's original work.
+The 2017 Transformer architecture has stood the test of time with just a few key tweaks. Inspired by @karpathy’s amazing [microgpt](https://karpathy.github.io/2026/02/12/microgpt/), 
+here is a version updated with Qwen 3 modernities: RoPE, QKNorm, GQA, and SwiGLU. Hand-edited to keep Andrej’s original clarity & purity - still fits in 3 columns!
+
+![Alt Text](microqwen.png)
 
 ## Rotary Position Embeddings (RoPE)
 
