@@ -3,8 +3,10 @@
 The 2017 Transformer architecture has stood the test of time with just a few key tweaks. Inspired by @karpathy’s amazing & artful [microgpt](https://karpathy.github.io/2026/02/12/microgpt/), here is a version updated with Qwen 3 modernities: RoPE, QKNorm, GQA, and SwiGLU. 
 Hand-coded to keep Andrej’s original clarity & purity - still fits in 3 columns!
 
-![Alt Text](microqwen.png)
+![microqwen](microqwen.png)
 
+Diff version:
+![microqwen diff](microqwen_diff.png)
 ## Rotary Position Embeddings (RoPE)
 
 microgpt uses GPT-2's learned position vector (`wpe`) which is added to the token embedding. RoPE (Rotary Position Embeddings) replaces this, encoding
