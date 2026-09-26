@@ -115,7 +115,7 @@ def silu(self):
     return Value(self.data*s, (self,), (s*(1+self.data*(1-s)),))
 ```
 
-The original FFN has two matrices at 4d × d, so 8d² parameters. SwiGLU has three matrices at h × d, so 3hd. Setting 3hd = 8d² gives h = (8/3)d. We approximate to 3 here. In total (this change + removing positional embeddings + GQA), the model goes from 4,192 to 3,944 parameters.
+Why does it work better? I don't know, ask Noam Shazeer :). The original FFN has two matrices at 4d × d, so 8d² parameters. SwiGLU has three matrices at h × d, so 3hd. Setting 3hd = 8d² gives h = (8/3)d. We approximate to 3 here. In total (this change + removing positional embeddings + GQA), the model goes from 4,192 to 3,944 parameters.
 
 
 
